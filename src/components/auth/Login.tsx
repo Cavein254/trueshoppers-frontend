@@ -1,14 +1,27 @@
 import { useState } from 'react';
-import './Auth.css'; // Import the CSS file
+import './Auth.css';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../utils/registerUser';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Login submitted:', { email, password });
-    // Add your login logic here (e.g., API call)
+    const userData = {
+      email,
+      password
+    }
+    const results = await loginUser(userData)
+    if(!results.success) {
+      return toast.error("Invalid credentials")
+    }
+    toast.success("Login Success")
+    return navigate('/')
   };
 
   return (

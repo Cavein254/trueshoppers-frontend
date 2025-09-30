@@ -1,3 +1,5 @@
+import { saveTokens } from "./auth";
+
 const url = import.meta.env.VITE_SERVER_URL;
 
 export async function registerUser(userData:any) {
@@ -47,13 +49,12 @@ export async function loginUser(userData:any) {
     }
 
     const data = await response.json();
-    console.log("login successful:", data);
+    saveTokens(data.access,data.refresh)
     return {
       success:true,
       payload:data
     }
   } catch (error) {
-    console.error("login failed:", error);
     return {
       success:false,
       payload:error

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './Auth.css'; // Import the CSS file
-import { registerUser } from '../product/utils/registerUser';
+import { registerUser } from '../utils/registerUser';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -8,11 +10,12 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
     console.log('Register submitted:', { firstName, lastName, email, password });
@@ -22,8 +25,12 @@ const Register = () => {
         email, 
         password 
     }
-
-    registerUser(userData)
+    const results = await registerUser(userData)
+    if(!results.success) {
+      return toast.error(results.payload)
+    }
+    toast.success("Registration Success")
+    return navigate('/login')
   };
 
   return (
