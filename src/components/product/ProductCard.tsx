@@ -22,7 +22,7 @@ const ProductCard = ({ product }:{product:any}) => {
         {product.description && (
           <p className="product-description">{product.description.substring(0, 100)}...</p>
         )}
-        <button className="add-to-cart-button">View Details</button>
+        <a href={`/products/${product.slug}/${product.id}`} className="add-to-cart-button">View Details</a>
       </div>
     </div>
   );

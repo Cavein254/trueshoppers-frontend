@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { getShops } from '../utils/shop';
 import './ShopList.css'; // Import the CSS file
+import { fetchWithAuth } from '../utils/auth';
 
-
-const ShopList = () => {
+const url = import.meta.env.VITE_SERVER_URL;
+const MyShops = () => {
     const [shops, setShops] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
  
   useEffect(()=>{
     async function allShops() {
-        const result = await getShops();
+        const result = await fetchWithAuth(url+"/api/v1/myshops/");
 
         if (result.success) {
             setShops(result.payload);
@@ -33,7 +33,12 @@ const ShopList = () => {
     }
 
     if (shops.length === 0) {
-        return <p className="no-shops">No shops available.</p>;
+        return (
+            <div>
+                <p className="no-shops">No shops available.</p>
+                <a href="/create-shop" className="shop-details-link">Create Shop</a>
+            </div>
+        )
     }
 
     const shopItems = shops.map((shop) => {
@@ -79,4 +84,4 @@ const ShopList = () => {
   );
 };
 
-export default ShopList;
+export default MyShops;

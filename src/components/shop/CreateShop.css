@@ -1,0 +1,78 @@
+.create-shop-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.create-shop-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.create-shop-form .form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-shop-form label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.create-shop-form input,
+.create-shop-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.create-shop-form input[type="file"] {
+  padding: 0.4rem;
+}
+
+.create-shop-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.create-shop-button {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.1rem;
+  background: #0077cc;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease-in-out;
+}
+
+.create-shop-button:hover:not(:disabled) {
+  background: #005fa3;
+}
+
+.create-shop-button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #d9534f;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.success-message {
+  color: #28a745;
+  margin-top: 1rem;
+  text-align: center;
+}
