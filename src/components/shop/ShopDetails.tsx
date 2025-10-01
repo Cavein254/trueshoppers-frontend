@@ -37,8 +37,8 @@ const ShopDetails = () => {
     }
 
   // Helper to get the main product image
-  const getMainProductImage = (images) => {
-    const mainImage = images.find(img => img.is_main);
+  const getMainProductImage = (images:any) => {
+    const mainImage = images.find((img: { image: string; is_main: boolean }) => img.is_main);
     return mainImage ? mainImage.image : (images.length > 0 ? images[0].image : 'https://via.placeholder.com/150?text=No+Image');
   };
 
@@ -71,7 +71,7 @@ const ShopDetails = () => {
 
         {shopDetails.products && shopDetails.products.length > 0 ? (
           <div className="product-cards-grid">
-            {shopDetails.products.map((product) => (
+            {shopDetails.products.map((product:any) => (
               <div key={product.id} className="product-card">
                 <img
                   src={getMainProductImage(product.images)}

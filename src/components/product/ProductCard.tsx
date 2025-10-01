@@ -5,7 +5,7 @@ const url = import.meta.env.VITE_SERVER_URL;
 const ProductCard = ({ product }:{product:any}) => {
   const randomNum = Math.floor(Math.random() * 10000) + 1;
   const logo_url = `https://picsum.photos/200/200?random=${randomNum}`;
-  const mainImage = product.images.find(image => image.is_main) || product.images[0];
+  const mainImage = product.images.find((image: { image: string; is_main: boolean }) => image.is_main) || product.images[0];
   const imageUrl = mainImage ? url + mainImage.thumbnail_url : logo_url; // Placeholder if no image
 
   return (

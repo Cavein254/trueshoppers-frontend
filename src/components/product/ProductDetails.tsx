@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProductDetails } from "../utils/product";
 import { useParams } from "react-router-dom";
 import './ProductDetails.css'
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
      const [productDetails, setProductDetails] = useState<any>(null);
@@ -11,7 +12,7 @@ const ProductDetails = () => {
     
         useEffect(()=>{
             async function productDetails() {
-                const result = await getProductDetails(id);
+                const result = await getProductDetails(Number(id));
         
                 if (result.success) {
                     setProductDetails(result.payload);
@@ -25,13 +26,13 @@ const ProductDetails = () => {
             productDetails();
           },[])
   const [mainImage, setMainImage] = useState<string | undefined>(
-    productDetails?.images.find(img => img.is_main)?.image || productDetails?.images[0]?.image
+    productDetails?.images.find((img:{ image: string; is_main: boolean }) => img.is_main)?.image || productDetails?.images[0]?.image
   );
 
   // Update main image when product prop changes
   useEffect(() => {
     if (productDetails) {
-      setMainImage(productDetails.images.find(img => img.is_main)?.image || productDetails.images[0]?.image);
+      setMainImage(productDetails.images.find((img: { image: string; is_main: boolean }) => img.is_main)?.image || productDetails.images[0]?.image);
     }
   }, [productDetails]);
 
@@ -44,6 +45,17 @@ const ProductDetails = () => {
     );
   }
 
+  if(loading) {
+    return (
+      <div>
+        <h4>Loading.......</h4>
+      </div>
+    )
+  }
+
+  if (error) {
+    return toast.error(error)
+  }
   // Fallback image if no images are provided
   const fallbackImage = 'https://via.placeholder.com/600x400?text=No+Product+Image';
 
@@ -60,7 +72,7 @@ const ProductDetails = () => {
           </div>
           {productDetails.images.length > 1 && (
             <div className="thumbnail-gallery">
-              {productDetails.images.map((image) => (
+              {productDetails.images.map((image:any) => (
                 <img
                   key={image.id}
                   src={image.image} // Using full image for thumbnails for simplicity, can use thumbnail_url if available and different

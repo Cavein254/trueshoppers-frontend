@@ -1,6 +1,6 @@
 const url = import.meta.env.VITE_SERVER_URL;
 
-export const getProductDetails = async (id:string) => {
+export const getProductDetails = async (id:Number) => {
     if(!id) return {
         success:false,
         message:"No product found!"

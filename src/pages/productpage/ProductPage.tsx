@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ProductCard from '../../components/product/ProductCard';
 import './ProductsPage.css'; // We'll create this CSS file next
 
@@ -29,11 +29,18 @@ const ProductsPage = () => {
 
     fetchData();
   }, [])
+  if(loading) {
+    return (
+      <div>
+        <h4>Loading.....</h4>
+      </div>
+    )
+  }
   return (
     <div className="products-page-container">
       <h1 className="page-title">Our Products</h1>
       <div className="product-list">
-        {products.map(product => (
+        {products.map((product:any) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchWithAuth } from "../utils/auth"; // your helper
 import "./CreateProduct.css";
 import { useParams, useNavigate } from "react-router-dom";
@@ -15,11 +15,18 @@ const CreateProduct: React.FC = () => {
   const {id} = useParams();
   const navigate = useNavigate()
 
+
+  useEffect(()=>{
+    if(id) {
+      setShopId(Number(id));
+    }
+  }, [id])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const payload = {
-      shop_id: id,
+      shop_id: shopId,
       name,
       price,
       stock_quantity: stockQuantity,
